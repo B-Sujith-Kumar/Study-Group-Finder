@@ -1,0 +1,43 @@
+<header id="main-header">
+    <h1 id="logo"><a href="/">Study Group Finder</a></h1>
+    <nav>
+      <ul>
+        <li class="border-hover"><a href="/">Home</a></li>
+        <li class="border-hover"><a href="">About Us</a></li>
+        <% if (!locals.isAuth) { %>
+          <li class="look-button"><a href="/login">Login</a></li>
+          <li class="look-button" class="signup"><a href="/signup">Signup</a></li>
+          <% } else { %>
+            <li class="border-hover"><a href="/your-groups">Your Groups</a></li>
+            <li class="border-hover"><a href="/groups/create">Create a group</a></li>
+            <li class="look-button">
+            <form action="/logout" method="post">
+              <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+              <button class="logout">Logout</button>
+            </form>
+          </li>
+        <% } %>
+      </ul>
+    </nav>
+</header>
+<!-- <aside id="mobile-menu">
+  <nav>
+    <ul>
+      <li class="border-hover"><a href="/">Home</a></li>
+      <li class="border-hover"><a href="">About Us</a></li>
+      <% if (!locals.isAuth) { %>
+        <li class="look-button"><a href="/login">Login</a></li>
+        <li class="look-button" id="signup"><a href="/signup">Signup</a></li>
+        <% } else { %>
+          <li class="border-hover"><a href="/your-groups">Your Groups</a></li>
+          <li class="border-hover"><a href="/create-group">Create a group</a></li>
+          <li class="look-button">
+          <form action="/logout" method="post">
+            <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+            <button id="logout">Logout</button>
+          </form>
+        </li>
+      <% } %>
+    </ul>
+  </nav>
+</aside> -->

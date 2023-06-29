@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Create group | Study Group Finder</title>
+    <link rel="stylesheet" href="/styles/header-style.css">
+    <link rel="stylesheet" href="/styles/create-group.css">
+    <script src="/scripts/image-preview.js" defer></script>
+</head>
+<body>
+    <%- include('../includes/header') %>
+    <main>
+        <div id="h1-div">
+            <h1>Create a <span>Study Group</span></h1>
+        </div>
+        <div id="parent-main">
+            <div id="main-content">
+                <h3>Fill the below details</h3>
+                <form action="/groups/create?_csrf=<%= locals.csrfToken %>" method="post" enctype="multipart/form-data">
+                    <div id="svg-loc">
+                        <label for="grp-location" id="common-label">Location of the group</label>
+                        <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="svg-img">
+                            <path d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                        <input type="text" id="grp-location" name="location" required placeholder="Enter city of your group">
+                    </div>
+                    <div id="svg-loc">
+                        <label for="grp-name" id="common-label">Name of the group</label>
+                        <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="svg-img">
+                            <path d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" stroke-linecap="round" stroke-linejoin="round"></path>
+                          </svg>
+                        <input type="text" id="grp-name" name="name" required placeholder="Enter name of your group">
+                    </div>
+                    <div id="svg-loc">
+                        <label for="grp-subject" id="common-label">Field of study of the group</label>
+                        <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="svg-img">
+                            <path d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                        <input type="text" id="grp-subject" name="subject" required placeholder="Field of study of your group">
+                    </div>
+                    <label for="grp-img" id="common-label">Choose a profile picture for your group</label>
+                    <div id="image-upload-control">
+                        <input type="file" id="grp-img" name="image" accept="image/png,image/jpg" required>
+
+                        <img src="" alt="Selected image">
+                    </div>
+
+                    <label for="grp-description" id="common-label">Describe your Study group</label>
+                    <textarea name="description" id="grp-description" cols="76" rows="5" required placeholder="Describe your group"></textarea>
+                    <input type="hidden" value="<%= uid %>" name="uid">
+                    <div id="button-form">
+                        <button type="reset" id="reset-btn">Reset</button>
+                        <button type="submit" id="create-btn">Create Group</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

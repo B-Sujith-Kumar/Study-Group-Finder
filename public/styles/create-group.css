@@ -1,0 +1,151 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    height: 140vh;
+    background: linear-gradient(180deg,rgb(254, 254, 254),#e8bab7);
+}
+
+header {
+    position: static;
+}
+
+
+#h1-div {
+    text-align: center;
+    color: rgb(58, 57, 57);
+    margin-top: 3rem;
+}
+
+#h1-div span {
+    text-transform: uppercase;
+    color: #ec5b53;
+}
+
+
+#main-content {
+    background-color: white;
+    width: 43rem;
+    margin: 3rem auto;
+    padding: 1.25rem 1.25rem;
+    border-radius: 10px;
+    box-shadow: 1px 4px 4px rgba(0,0,0,0.34);
+    
+}
+
+#parent-main h3 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-top: 0.7rem;
+    color: rgb(54, 53, 53);;
+}
+
+#grp-location, #grp-name, #grp-subject, #grp-img {
+    display: block;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9rem;
+    width: 41.75rem;
+    height: 1.8rem;
+    color: rgb(38, 37, 37);
+    outline: none;
+}
+
+#grp-location {
+    text-indent: 30px;
+}
+
+#grp-name {
+    text-indent: 30px;
+}
+
+#grp-subject {
+    text-indent: 30px;
+}
+
+#grp-description {
+    outline: none;
+    display: block;
+    resize: vertical;
+    font-family: 'Open Sans', sans-serif;
+    color: rgb(38, 37, 37);
+    /* text-indent: 7px; */
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+#grp-location:focus, #grp-name:focus, #grp-subject:focus, #grp-description:focus {
+    border: 2px solid #ec5a52;
+}
+
+#common-label {
+    display: block;
+    margin-bottom: 1.25rem;
+    margin-top: 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: rgb(43, 43, 43);
+}
+
+#svg-loc {
+    position: relative;
+}
+
+#svg-img {
+    position: absolute;
+    width: 1.2rem;
+    top: 64%;
+    left: 1%;
+}
+
+#button-form {
+    text-align: center;
+    margin: 2rem auto 0rem auto;
+}
+
+#reset-btn, #create-btn {
+    width: 10rem;
+    height: 2.8rem;
+    padding: 5px 8px;
+    font-family: 'Open Sans';
+    font-size: 0.9rem;
+    font-weight: bold;
+    background-color: #ec5a52;
+    color: white;
+    border: 1px solid #ec5a52;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color ease-in 0.2s;
+    margin: auto 1.5rem;
+}
+
+#reset-btn {
+    background-color: white;
+    color: black;
+}
+
+#create-btn:hover {
+    background-color: #da3931;
+}
+
+#reset-btn:hover {
+    background-color: #ec5b53;
+    color: white;
+}
+
+#image-upload-control {
+    display: flex;
+    align-items: center;
+}
+
+#image-upload-control input {
+    max-width: 15rem;
+}
+
+#image-upload-control img {
+    display: none;
+    margin-left: 2rem;
+    width: 8rem;
+    height: 4rem;
+    object-fit: cover;
+    border-radius: 4px;
+}

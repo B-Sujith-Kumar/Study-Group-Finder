@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Study Group Finder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/header-style.css">
+    <link rel="stylesheet" href="styles/login-page.css">
+</head>
+<body>
+    <%- include('../../includes/header') %>
+    </header>
+    <main>
+        <% if (inputData.errorMessage) { %>
+                <section class="alert">
+                    <h2>Invalid <span>Credentials</span></h2>
+                    <p><%= inputData.errorMessage %></p>
+                </section>
+        <% } %>
+        <ul>
+            <li>
+                <img src="/images/logimg.jpg" alt="" id="log-img">
+                <div id="login-items">
+                    <h1><a href="/" id="home-link"> Study Group Finder</a></h1>
+                    <p id="welcome">Welcome back!</p>
+                    <p id="log-email">Login with email</p>
+                    <form action="/login" method="post">
+
+                        <input type="hidden" value="<%= locals.csrfToken %>" name="_csrf">
+
+                        <label for="email-cred" id="label-email">Email Address</label>
+                        <input type="email" required id="email-cred" name="email" placeholder="Enter your email" value="<%= inputData.email %>">
+
+                        <label for="password-cred" id="label-pass">Password</label>
+                        <input type="password" required id="password-cred" name="password" minlength="6" placeholder="Enter your password" value="<%= inputData.password %>">
+
+                        <div id="btn-to-log">
+                            <button id="log-btn">Login</button>
+                        </div>
+                    </form>
+                    <div id="sign-link">
+                        <a href="/signup" id="signup">Don't have an account?</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </main>
+</body>
+</html>

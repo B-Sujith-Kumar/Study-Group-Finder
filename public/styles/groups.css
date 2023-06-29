@@ -1,0 +1,109 @@
+body {
+    height: 100vh;
+    background: linear-gradient(180deg,rgb(254, 254, 254),#f7c6c3);
+}
+main {
+    height: auto;
+}
+
+#groups-grid {
+    margin: 2rem 3.3rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(15rem, 1fr));
+    gap: 2rem;
+}
+
+#img-div {
+    padding: 0.8rem;
+}
+
+#img-div img {
+    border-radius: 8px;
+    transition: transform ease-in-out 0.3s;
+}
+
+#img-div img:hover {
+    transform: scale(1.027);
+}
+
+#explore-main h1 {
+    text-align: center;
+    color: rgb(64, 63, 63);
+    font-size: 1.9rem;
+    margin: 3rem auto 3.5rem auto;
+}
+
+
+#span {
+    text-transform: uppercase;
+    color: #ec5a52;
+}
+
+#groups-grid li {
+    list-style: none;
+}
+
+.group-item {
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgb(251, 255, 250);
+    background: linear-gradient(180deg, white, rgb(241, 235, 225));
+    overflow: hidden;
+    width: 25rem;
+    border: 1px solid rgb(181, 179, 179);
+}
+
+.group-item img {
+    width: 100%;
+    height: 12.3rem;
+    object-fit: cover; 
+    border: 0.5px solid rgb(181, 179, 179);
+}
+
+#group-item-content {
+    padding: 1rem;
+}
+
+#group-item-content p{
+    margin-bottom: 5rem;
+}
+
+.group-item h2 {
+    font-size: 1.5rem;
+    margin: 0;
+    /* color: #ec5a52; */
+    color: rgb(69, 68, 68);
+}
+
+.group-item p {
+    font-size: 1.1rem;
+    color: #ff3e34;
+    font-weight: bold;
+    transition: color ease-in-out 0.4s;
+}
+
+.group-item p:hover {
+    color: rgb(67, 66, 66);
+}
+
+.group-item-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.8rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.edit-grp {
+    background-color: white;
+    color: rgb(47, 46, 46);
+}
+
+.edit-grp:hover {
+    color: white;
+    background-color: #ec5a52;
+}
+
+.action {
+    padding: 0.7rem 1.5rem;
+}

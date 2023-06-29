@@ -1,0 +1,46 @@
+main {
+    text-align: center;
+    margin: 8rem auto;
+}
+
+main h1 {
+    color: rgb(53, 52, 52);
+    font-size: 3rem;
+    margin-bottom: 4rem;
+}
+
+main h1 span {
+    color: #ec5b53;
+}
+
+#text {
+    font-size: 1.4rem;
+    color: rgb(66, 66, 66);
+    margin-bottom: 3rem;
+}
+
+
+#back {
+    padding: 13px 25px;
+    font-family: 'Open Sans';
+    font-size: 17px;
+    background-color: #ec5b53;
+    color: white;
+    border: 1px solid #ec5b53;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color ease-in 0.4s;
+    font-weight: bold;
+    display: inline-block;
+}
+
+#back:hover {
+    background-color: #da3931;
+}
+
+#back a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+

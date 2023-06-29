@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up | Study Group Finder</title>
+    <link rel="stylesheet" href="/styles/header-style.css">
+    <link rel="stylesheet" href="/styles/signup-page.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+</head>
+<body>
+    <%- include('../../includes/header') %>
+    <main id="main">
+        <% if (inputData.errorMessage) { %>
+            <section class="alert">
+                <h2>Invalid <span>input</span></h2>
+                <p><%= inputData.errorMessage %></p>
+            </section>
+        <% } %>
+        <ul id="main-ul">
+            <li>
+                <img src="/images/logimg.jpg" alt="" id="log-img">
+                <div id="login-items">
+                    <h1><a href="/" id="home-link"> Study Group Finder</a></h1>
+                    <p id="welcome">Signup to <span id="sgf"><strong>Study Group Finder</strong></span></p>
+
+                    <form action="/signup" method="post">
+
+                        <input type="hidden" value="<%= locals.csrfToken %>" name="_csrf">
+
+                        <label for="name-profile" id="label-name">Your Name</label>
+                        <input type="text" id="name-profile" required placeholder="Enter your name" name="name" value="<%= inputData.name  %>">
+
+                        <label for="email-cred" id="label-email">Email Address</label>
+                        <input type="email" required id="email-cred" name="email" placeholder="Enter your email" value="<%= inputData.email %>">
+
+                        <label for="password-cred" id="label-pass">Password</label>
+                        <input type="password" required id="password-cred" name="password" minlength="6" placeholder="Enter your password" value="<%= inputData.password %>">
+
+                        <label for="ph-number" id="label-number">Your Phone number</label>
+                        <input type="text" id="ph-number" name="phnumber" required placeholder="Enter your Phone number" value="<%= inputData.phnumber %>" minlength="10" maxlength="10">
+
+                        <div id="btn-to-log">
+                            <button id="log-btn">Create Account</button>
+                        </div>
+                    </form>
+                    <div id="sign-link">
+                        <a href="/login" id="signup">Log in to existing account</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </main>
+</body>
+</html>

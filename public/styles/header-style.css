@@ -1,0 +1,142 @@
+header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    background-color: rgb(243, 241, 241);
+    /* background: linear-gradient(180deg,rgba(246, 244, 244, 1), rgba(249, 236, 235,1)); */
+    position: fixed;
+    box-shadow: 0px 4px 4px rgba(144, 143, 143, 0.3);
+
+}
+
+header nav {
+    margin-right: 1.2rem;
+}
+
+header #logo {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+header h1 {
+    margin: auto 1.8rem;
+}
+
+#logo a {
+    text-decoration: none;
+    color: rgb(56, 55, 55);
+    transition: color ease-in 0.3s;
+}
+
+#logo a:hover {
+    color: #ec5b53;
+}
+
+header nav ul {
+    display: flex;
+    position: relative;
+    top: 4px;
+}
+
+header nav ul li {
+    list-style-type: none;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: black;
+    font-family: 'Open Sans', sans-serif;
+    transition: color ease-out 0.5s;
+}
+
+nav ul li {
+    margin: 1rem 1.5rem;
+    font-size: 1.05rem;
+}
+
+.look-button a{
+    color: white;
+    background-color: #ec5b53;
+    padding: 7px 23px;
+    border-radius: 5px;
+    transition: background-color linear 0.5s;
+    font-weight: bold;
+}
+
+.look-button a:hover {
+    background-color: #da3931
+}
+
+.signup {
+    margin-left: 0rem;
+}
+
+.signup a{
+    background-color: white;
+    color: black;
+    border: 1px solid #ec5b53;
+    transition: background-color ease-in 0.4s;
+}
+
+.signup a:hover {
+    color: white;
+    background-color: #ec5b53;
+}
+
+
+.border-hover {
+    padding-bottom: 3px;
+}
+
+.border-hover a:hover {
+    color: #ec5b53;;
+}
+
+.logout {
+    /* width: 7rem; */
+    /* height: 2.8rem; */
+    padding: 4px 13px;
+    position: relative;
+    top: -4px;
+    margin: 0px auto;
+    font-family: 'Open Sans';
+    font-size: 1rem;
+    /* font-weight: bold; */
+    background-color: #ec5a52;
+    color: white;
+    border: 1px solid #ec5a52;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color ease-in 0.3s;
+    text-decoration: none;
+}
+
+.logout:hover {
+    background-color: #da3931;
+}
+
+.alert {
+    padding: 4px;
+    width: 30rem;
+    margin: 1.5rem auto 1rem auto;
+    text-align: center;
+}
+
+.alert h2 {
+    font-size: 1.1rem;
+    margin: 17px 0;
+    text-transform: uppercase;
+    color: rgb(56, 55, 55);;
+}
+
+.alert h2 span {
+    color: #ec5a52;
+}
+
+.alert p {
+    margin: 2px 0;
+    color: rgb(56, 55, 55);
+    font-size: 1.07rem;
+}
