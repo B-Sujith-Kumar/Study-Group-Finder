@@ -104,6 +104,14 @@ async function deleteGroup(req, res, next) {
     }
 }
 
+async function searchGroup(req, res, next) {
+    let grpName = req.body.search;
+    grpName = grpName;
+    console.log(grpName);
+    const group = await db.getDb().collection('groups').find( {name: grpName} );
+    console.log(group);
+}
+
 module.exports = {
     exploreGroups: exploreGroups,
     createGroup: createGroup,
@@ -111,5 +119,6 @@ module.exports = {
     getUpdateGroup: getUpdateGroup,
     updateGroup: updateGroup,
     getGroupDetails: getGroupDetails,
-    deleteGroup: deleteGroup
+    deleteGroup: deleteGroup,
+    searchGroup: searchGroup
 }

@@ -24,13 +24,13 @@
         <div id="close-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" id="close-svg">
         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></div>
         <div id="main-overlay">
-          <h2>Search <span id="span-groups">Study Groups</span></h2>
-          <form id="search-form">
+          <h2>Search <span id="span-groups">Study Group</span></h2>
+          <form id="search-form" action="/groups/search?_csrf=<%= locals.csrfToken%>" method="post">
             <div id="search-div">
               <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"  id="search-icon">
                 <path d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
-              <input type="text" name="search-overlay" id="search-overlay" placeholder="Enter name of the group">
+              <input type="text" name="search" id="search-overlay" placeholder="Enter name of the group">
               <div>
                 <button type="button" id="cancel-btn">Cancel</button>
                 <button type="submit" id="search-btn">Search</button>
@@ -44,7 +44,7 @@
           <div id="non-img">
             <h1>Want to study <span id="together">together?</span></h1>
             <p>Search and join a group based on your interests</p>
-            <button id="search-grp">Search Groups</button> 
+            <button id="search-grp">Search Group</button> 
             <a href="/groups" id="explore-now">Explore Now</a>
           </div>
           <div id="image-container">
