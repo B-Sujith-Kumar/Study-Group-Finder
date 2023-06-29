@@ -6,6 +6,8 @@ const checkAuth = require('../middlewares/check-auth');
 
 const mongoDb = require('mongodb');
 
+const sessionFlash = require('../util/session-flash');
+
 async function exploreGroups(req, res, next) {
     try{
         const groups = await Group.findAll();
@@ -27,7 +29,17 @@ async function exploreGroups(req, res, next) {
 }
 
 function createGroupPage(req, res) {
-    res.render('groups/create-group', { uid: req.session.uid });
+    let sessionData = sessionFlash.getSessionData(req);
+
+    if(!sessionData) {
+        sessionData = {
+            location: '',
+            name: '',
+            subject: '',
+            description: ''
+        }
+    }
+    res.render('groups/create-group', { uid: req.session.uid, inputData: sessionData });
 }
 
 async function createGroup(req, res, next) {
@@ -38,22 +50,51 @@ async function createGroup(req, res, next) {
     const uid = req.session.uid;
 
     const group = new Group( { ...req.body, image: req.file.filename});
-    
-    try{
-        await group.save();
-    } catch(error) {
-        next(error);
+
+    let allGroups = await db.getDb().collection('groups').findOne({ name: group.name });
+
+
+    const sessionErrorData = {
+        errorMessage: 'A group with this name already exists. Try a different name!',
+        location: group.location,
+        name: group.name,
+        subject: group.subject,
+        description: group.description
+    }
+
+    if(!allGroups) {
+        try{
+            await group.save();
+        } catch(error) {
+            next(error);
+            return;
+        }
+        res.redirect('/groups');
         return;
     }
-   
-    res.redirect('/');
+
+    sessionFlash.flashDataToSession(req, sessionErrorData, function() {
+        res.redirect('/groups/create');
+    })
+    return;
+
 }
 
 async function getUpdateGroup(req, res, next) {
+    let sessionData = sessionFlash.getSessionData(req);
+
+    if(!sessionData) {
+        sessionData = {
+            location: '',
+            name: '',
+            subject: '',
+            description: ''
+        }
+    }
     try {
         const group = await Group.findById(req.params.id);
 
-        res.render('groups/update-group', { group: group, uid: req.session.uid });
+        res.render('groups/update-group', { group: group, uid: req.session.uid, inputData: sessionData });
     } catch (error) {
         next(error);
     }
@@ -69,14 +110,34 @@ async function updateGroup(req, res, next) {
         group.replaceImage(req.file.filename);
     }
 
-    try {
-        await group.save();
-    } catch (error) {
-        next(error);
-        return;
+    let prevName = await db.getDb().collection('groups').findOne( {_id: new mongoDb.ObjectId(req.params.id)} );
+
+    let allGroups = await db.getDb().collection('groups').findOne({ name: group.name });
+
+    const sessionErrorData = {
+        errorMessage: 'A group with this name already exists. Try a different name!',
+        location: group.location,
+        name: group.name,
+        subject: group.subject,
+        description: group.description
     }
 
-    res.redirect('/groups');
+    if(allGroups && group.name === prevName.name) {
+        try {
+            await group.save();
+        } catch (error) {
+            next(error);
+            return;
+        }
+    
+        res.redirect('/groups');
+        return;
+    }
+    
+    sessionFlash.flashDataToSession(req, sessionErrorData, function() {
+        res.redirect('/groups/edit/' + req.params.id);
+    })
+
 }
 
 async function getGroupDetails(req, res, next) {
@@ -107,9 +168,14 @@ async function deleteGroup(req, res, next) {
 async function searchGroup(req, res, next) {
     let grpName = req.body.search;
     grpName = grpName;
-    console.log(grpName);
-    const group = await db.getDb().collection('groups').find( {name: grpName} );
-    console.log(group);
+    let group = await db.getDb().collection('groups').findOne( {name: grpName} );
+    if(!group) {
+        res.render('shared/failed-search');
+        return;
+    }
+    group = new Group(group);
+    const uid = req.session.uid;
+    res.render('groups/search-group', {group: group, id: uid});
 }
 
 module.exports = {
