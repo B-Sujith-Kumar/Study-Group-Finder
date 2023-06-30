@@ -26,4 +26,6 @@ router.post('/groups/delete/:id', groupsController.deleteGroup);
 
 router.post('/groups/search', groupsController.searchGroup);
 
+router.post('/groups/your-groups/:id', groupsController.getYourGroups);
+
 module.exports = router;

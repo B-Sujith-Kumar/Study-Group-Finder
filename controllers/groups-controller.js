@@ -178,6 +178,19 @@ async function searchGroup(req, res, next) {
     res.render('groups/search-group', {group: group, id: uid});
 }
 
+async function getYourGroups(req, res, next) {
+    let id = req.params.id;
+    let allGroups = await db.getDb().collection('groups').find({'admin': id}).toArray();
+    let arrayOfGroups = [];
+    for(let i in allGroups) {
+        // console.log(allGroups[group].location);
+        const grp = new Group(allGroups[i]);
+        arrayOfGroups.push(grp);
+    }
+
+    res.render('users/your-groups', {id: req.session.uid, groups: arrayOfGroups});
+}
+
 module.exports = {
     exploreGroups: exploreGroups,
     createGroup: createGroup,
@@ -186,5 +199,6 @@ module.exports = {
     updateGroup: updateGroup,
     getGroupDetails: getGroupDetails,
     deleteGroup: deleteGroup,
-    searchGroup: searchGroup
+    searchGroup: searchGroup,
+    getYourGroups: getYourGroups
 }
