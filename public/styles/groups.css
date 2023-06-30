@@ -1,16 +1,22 @@
-body {
-    height: 100vh;
+html {
     background: linear-gradient(180deg,rgb(254, 254, 254),#f7c6c3);
-}
-main {
     height: auto;
 }
 
+main {
+    /* background: linear-gradient(180deg,rgb(254, 254, 254),#f7c6c3); */
+    min-height: 83vh;
+}
+
 #groups-grid {
-    margin: 2rem 3.3rem;
+    margin: 2rem 3.3rem 0rem 3.3rem;
     display: grid;
     grid-template-columns: repeat(3, minmax(15rem, 1fr));
-    gap: 2rem;
+    gap: 1rem;
+}
+
+#groups-grid li {
+    margin-bottom: 1rem;
 }
 
 #img-div {
@@ -51,6 +57,8 @@ main {
     overflow: hidden;
     width: 25rem;
     border: 1px solid rgb(181, 179, 179);
+    margin-right: 0;
+    box-shadow: 6px 7px 17px rgba(0,0,0,0.2);
 }
 
 .group-item img {
@@ -106,4 +114,12 @@ main {
 
 .action {
     padding: 0.7rem 1.5rem;
+}
+
+#explore-main section {
+    margin-bottom: 1rem;
+}
+
+.main-class {
+    height: 90vh;
 }
