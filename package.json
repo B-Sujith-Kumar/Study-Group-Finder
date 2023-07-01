@@ -1,7 +1,7 @@
 {
   "name": "main-project-resources",
   "version": "1.0.0",
-  "description": "Study Group Finder for mini project",
+  "description": "Study Group Finder",
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js"
