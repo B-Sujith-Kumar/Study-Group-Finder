@@ -28,4 +28,6 @@ router.post('/groups/search', groupsController.searchGroup);
 
 router.post('/groups/your-groups/:id', groupsController.getYourGroups);
 
+router.post('/groups/join/:id', groupsController.joinGroup);
+
 module.exports = router;

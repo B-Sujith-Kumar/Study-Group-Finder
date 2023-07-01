@@ -145,7 +145,16 @@ async function getGroupDetails(req, res, next) {
         const group = await Group.findById(req.params.id);
         const admin = new mongoDb.ObjectId(group.admin);
         const user = await db.getDb().collection('users').findOne({_id: admin});
-        res.render('groups/group-detail', { group: group, name: user.name, uid: req.session.uid });
+        const groupForMembers = await db.getDb().collection('groups').findOne({_id: new mongoDb.ObjectId(req.params.id)});
+        let isMember = false;
+        const members = groupForMembers.members;
+        for (const i of members) {
+            if (i === req.session.uid) {
+                isMember = true;
+                break;
+            }
+        }
+        res.render('groups/group-detail', { group: group, name: user.name, uid: req.session.uid, isMember: isMember});
     } catch( error ) {
         next(error);
         return;
@@ -183,12 +192,21 @@ async function getYourGroups(req, res, next) {
     let allGroups = await db.getDb().collection('groups').find({'admin': id}).toArray();
     let arrayOfGroups = [];
     for(let i in allGroups) {
-        // console.log(allGroups[group].location);
         const grp = new Group(allGroups[i]);
         arrayOfGroups.push(grp);
     }
 
     res.render('users/your-groups', {id: req.session.uid, groups: arrayOfGroups});
+}
+
+async function joinGroup(req, res, next) {
+    const group = await Group.findById(req.params.id);
+    const admin = new mongoDb.ObjectId(group.admin);
+    const user = await db.getDb().collection('users').findOne({_id: admin});
+    const grpId = new mongoDb.ObjectId(req.params.id);
+    let groupForMembers = await db.getDb().collection('groups').findOne({_id: grpId});
+    await db.getDb().collection('groups').updateOne({_id: grpId}, { $push: {members: req.session.uid}} );
+    res.redirect('/groups/' + req.params.id);
 }
 
 module.exports = {
@@ -200,5 +218,6 @@ module.exports = {
     getGroupDetails: getGroupDetails,
     deleteGroup: deleteGroup,
     searchGroup: searchGroup,
-    getYourGroups: getYourGroups
+    getYourGroups: getYourGroups,
+    joinGroup: joinGroup
 }
