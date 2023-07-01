@@ -51,7 +51,7 @@
                 <li id="join-btn-li">
                     <% if (uid && uid!=group.admin) { %>
                         <% if (isMember) {%>
-                            <form action="" method="post">
+                            <form action="/groups/leave-group/<%= group.id %>?_csrf=<%= locals.csrfToken%>" method="post">
                                 <button id="join-btn" class="leave-btn">Leave this group</button>
                             </form>
                         <% } %>

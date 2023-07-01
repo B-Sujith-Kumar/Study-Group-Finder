@@ -30,4 +30,6 @@ router.post('/groups/your-groups/:id', groupsController.getYourGroups);
 
 router.post('/groups/join/:id', groupsController.joinGroup);
 
+router.post('/groups/leave-group/:id', groupsController.leaveGroup);
+
 module.exports = router;

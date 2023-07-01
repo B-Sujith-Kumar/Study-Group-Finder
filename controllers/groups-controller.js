@@ -190,13 +190,25 @@ async function searchGroup(req, res, next) {
 async function getYourGroups(req, res, next) {
     let id = req.params.id;
     let allGroups = await db.getDb().collection('groups').find({'admin': id}).toArray();
+    let memberGroup = await db.getDb().collection('groups').find(
+        {members: {$elemMatch: {$eq: req.session.uid} } }).toArray();
     let arrayOfGroups = [];
+    let arrayOfGroups2 = [];
     for(let i in allGroups) {
         const grp = new Group(allGroups[i]);
         arrayOfGroups.push(grp);
     }
+    
+    if (memberGroup.length != 0) {
+        for (let i in memberGroup) {
+            const grp = new Group(memberGroup[i]);
+            arrayOfGroups2.push(grp);
+        }
+    }
 
-    res.render('users/your-groups', {id: req.session.uid, groups: arrayOfGroups});
+    console.log(arrayOfGroups);
+
+    res.render('users/your-groups', {id: req.session.uid, groups: arrayOfGroups, member: arrayOfGroups2});
 }
 
 async function joinGroup(req, res, next) {
@@ -206,6 +218,13 @@ async function joinGroup(req, res, next) {
     const grpId = new mongoDb.ObjectId(req.params.id);
     let groupForMembers = await db.getDb().collection('groups').findOne({_id: grpId});
     await db.getDb().collection('groups').updateOne({_id: grpId}, { $push: {members: req.session.uid}} );
+    res.redirect('/groups/' + req.params.id);
+}
+
+async function leaveGroup(req, res, next) {
+    const id = new mongoDb.ObjectId(req.params.id);
+    const group = await db.getDb().collection('groups').findOne({_id: id});
+    await db.getDb().collection('groups').updateOne({_id: id}, {$pull: {members: req.session.uid}});
     res.redirect('/groups/' + req.params.id);
 }
 
@@ -219,5 +238,6 @@ module.exports = {
     deleteGroup: deleteGroup,
     searchGroup: searchGroup,
     getYourGroups: getYourGroups,
-    joinGroup: joinGroup
+    joinGroup: joinGroup,
+    leaveGroup: leaveGroup
 }
