@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Groups | Study Group Finder</title>
+    <link rel="stylesheet" href="/styles/header-style.css">
+    <link rel="stylesheet" href="/styles/signup-page.css">
+    <link rel="stylesheet" href="/styles/groups.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+</head>
+<body>
+    <%- include('../includes/header') %>
+    <main id="explore-main" class="main-class">
+        <h1>Your <span id="span">Study Groups</span></h1>
+        <section>
+            <ul id="groups-grid" class="groups-grid">
+                <% for (const group of groups) { %>
+                    <li>
+                        <article class="group-item">
+                            <div id="img-div">
+                                <img src="<%= group.imageUrl %>" alt="<%= group.name %>">
+                            </div>
+                            <div class="group-item-content">
+                                <h2><%= group.name %></h2>
+                                <p>Field of study : <%= group.subject %></p>
+                                <div class="group-item-actions">
+                                    <a href="/groups/<%= group.id %>" class="logout action">View Group</a>
+                                    <% if (group.admin == id) { %>
+                                    <a href="/groups/edit/<%= group.id %>" class="logout edit-grp action">Edit Group</a>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </article>
+                    </li>
+                <% } %>
+            </ul>
+        </section>
+    </main>
+</body> 
+</html>

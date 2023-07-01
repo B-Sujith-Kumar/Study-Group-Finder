@@ -21,6 +21,12 @@
         <div id="h1-div">
             <h1>Edit your <span>Study Group</span></h1>
         </div>
+        <% if (inputData.errorMessage) { %>
+            <section class="alert">
+                <h2>Not a valid group name, <span>Sorry :(</span></h2>
+                <p><%= inputData.errorMessage %></p>
+            </section>
+        <% } %>
         <div id="parent-main">
             <div id="main-content">
                 <h3>Fill the below details</h3>

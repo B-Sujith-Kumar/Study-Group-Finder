@@ -50,7 +50,18 @@
                 </div>
                 <li id="join-btn-li">
                     <% if (uid && uid!=group.admin) { %>
-                            <button id="join-btn">Join this group</button>
+                        <% if (isMember) {%>
+                            <form action="" method="post">
+                                <button id="join-btn" class="leave-btn">Leave this group</button>
+                            </form>
+                        <% } %>
+                    <% } %>
+                    <% if (uid && uid!=group.admin) { %>
+                        <% if (!isMember) { %>
+                            <form action="/groups/join/<%= group.id %>?_csrf=<%= locals.csrfToken%>" method="post">
+                                <button id="join-btn">Join this group</button>
+                            </form>
+                        <% } %>
                     <% } %>
                     <% if (group.admin === uid) { %>
                     <form action="/groups/delete/<%= group.id %>?_csrf=<%= locals.csrfToken%>" id="delete" method="post">
@@ -60,7 +71,12 @@
                 </li>
             </ul>
         </div>
-        <hr id="hr">
+        <% if(uid) { %>
+            <hr id="hr">
+        <% } %>
+        <% if(!uid) { %>
+            <hr id="hr" style="margin-top: 2.4rem;">
+        <% } %>
         <div id="abt-grp">
             <h2>What we're about</h2>
             <p id="description"><%= group.description %></p>

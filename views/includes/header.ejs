@@ -8,7 +8,9 @@
           <li class="look-button"><a href="/login">Login</a></li>
           <li class="look-button" class="signup"><a href="/signup">Signup</a></li>
           <% } else { %>
-            <li class="border-hover"><a href="/your-groups">Your Groups</a></li>
+            <form action="/groups/your-groups/<%= uid %>?_csrf=<%= locals.csrfToken %>" method="post"> 
+              <li class="border-hover"><button>Your Groups</button></li>
+            </form>
             <li class="border-hover"><a href="/groups/create">Create a group</a></li>
             <li class="look-button">
             <form action="/logout" method="post">
