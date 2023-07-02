@@ -249,6 +249,8 @@ async function viewMembers(req, res, next) {
 async function removeMember(req, res, next) {
     const grpId = new mongoDb.ObjectId(req.params.grpId);
     const userId = req.params.userId;
+    const group = await db.getDb().collection('groups').updateOne({_id: grpId}, {$pull: {members: userId}});
+    res.redirect('/groups/' + req.params.grpId);
 }
 
 module.exports = {

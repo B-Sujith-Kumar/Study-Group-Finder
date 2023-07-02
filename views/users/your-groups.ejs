@@ -18,6 +18,9 @@
 <body>
     <%- include('../includes/header') %>
     <main id="explore-main" class="main-class">
+        <% if (groups.length === 0) { %>
+            <h1>Join or Create a <span id="span">group</span></h1>
+        <% } %>
         <% if (groups.length != 0) { %>
         <h1>Created <span id="span">Study Groups</span></h1>
         <section>

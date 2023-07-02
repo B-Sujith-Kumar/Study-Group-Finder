@@ -18,6 +18,10 @@
 <body>
     <%- include('../includes/header') %>
     <main id="explore-main">
+        <% if(membersList.length == 0) { %>
+            <h1>No <span id="span">members found!</span></h1>
+        <% } %>
+        <% if (membersList.length != 0) { %>
         <h1>View <span id="span">Members</span></h1>
         <section>
             <ul id="groups-grid" class="groups-grid">
@@ -28,7 +32,7 @@
                                 <h2><%= user.name %></h2>
                                 <p>Email : <%= user.email %></p>
                                 <p id="phnumber">Phone Number: <%= user.phnumber %></p>
-                                <form action="/groups/<%= user.grpId %>/remove-member/<%= user.userId %>" method="post">
+                                    <form action="/groups/<%= user.grpId %>/remove-member/<%= user.userId %>?_csrf=<%= locals.csrfToken %>" method="post">
                                     <button class="logout action remove">Remove from group</button>
                                 </form>
                             </div>
@@ -37,6 +41,7 @@
                 <% } %>
             </ul>
         </section>
+        <% } %>
     </main>
 </body> 
 </html>

@@ -1,11 +1,12 @@
 html {
-    background: linear-gradient(180deg,rgb(254, 254, 254),#f7c6c3);
+    background: linear-gradient(180deg,rgb(254, 254, 254),#f8d8d6);
     height: auto;
 }
 
 main {
     /* background: linear-gradient(180deg,rgb(254, 254, 254),#f7c6c3); */
-    min-height: 83vh;
+    min-height: 85vh;
+    height: auto;
 }
 
 #groups-grid {
@@ -58,7 +59,7 @@ main {
     width: 25rem;
     border: 1px solid rgb(181, 179, 179);
     margin-right: 0;
-    box-shadow: 6px 7px 17px rgba(0,0,0,0.2);
+    box-shadow: 6px 7px 17px rgba(0,0,0,0.25);
 }
 
 .group-item img {
@@ -120,6 +121,17 @@ main {
     margin-bottom: 1rem;
 }
 
-.main-class {
-    height: 90vh;
+#groups-grid #member-list {
+    padding-top: 1rem;
+}
+
+#phnumber {
+    color: rgb(69, 68, 68);;
+}
+
+.remove {
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem 1.1rem;
+    font-weight: bold;
 }
