@@ -51,5 +51,5 @@ db.connectToDatabase()
 })
 .catch(function(error) {
     console.log("Failed to connect to the database");
-    console.log(error);
-})
+    console.log(error);}
+)
