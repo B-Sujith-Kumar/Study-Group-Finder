@@ -1,5 +1,7 @@
 const Group = require('../models/group-model');
 
+const User = require('../models/user-model');
+
 const db = require('../data/database');
 
 const checkAuth = require('../middlewares/check-auth');
@@ -12,15 +14,6 @@ async function exploreGroups(req, res, next) {
     try{
         const groups = await Group.findAll();
         const uid = req.session.uid;
-        // for(const group of groups) {
-        //     const admin = group.admin;
-        //     if (admin == uid) {
-        //         console.log("ID matching");
-        //     }
-        //     else {
-        //         console.log("Not matching");
-        //     }
-        // }
         res.render('groups/explore-groups', {groups: groups, id: uid});
     } catch (error) {
         next(error);
@@ -178,10 +171,12 @@ async function searchGroup(req, res, next) {
     let grpName = req.body.search;
     grpName = grpName;
     let group = await db.getDb().collection('groups').findOne( {name: grpName} );
+
     if(!group) {
         res.render('shared/failed-search');
         return;
     }
+
     group = new Group(group);
     const uid = req.session.uid;
     res.render('groups/search-group', {group: group, id: uid});
@@ -192,8 +187,10 @@ async function getYourGroups(req, res, next) {
     let allGroups = await db.getDb().collection('groups').find({'admin': id}).toArray();
     let memberGroup = await db.getDb().collection('groups').find(
         {members: {$elemMatch: {$eq: req.session.uid} } }).toArray();
+
     let arrayOfGroups = [];
     let arrayOfGroups2 = [];
+
     for(let i in allGroups) {
         const grp = new Group(allGroups[i]);
         arrayOfGroups.push(grp);
@@ -228,6 +225,32 @@ async function leaveGroup(req, res, next) {
     res.redirect('/groups/' + req.params.id);
 }
 
+async function viewMembers(req, res, next) {
+    const id = new mongoDb.ObjectId(req.params.id);
+    const group = await db.getDb().collection('groups').findOne({_id: id});
+    const members = group.members;
+    const membersList = [];
+
+    for (const i of members) {
+        const uid = new mongoDb.ObjectId(i);
+        const user = await db.getDb().collection('users').findOne({_id: uid});
+        membersList.push(user);
+    }
+
+    for(const i of membersList) {
+        i.grpId = req.params.id;
+        i.userId = i._id.toString();
+    }
+
+    console.log(membersList);
+    res.render('groups/view-members', {membersList: membersList});
+}
+
+async function removeMember(req, res, next) {
+    const grpId = new mongoDb.ObjectId(req.params.grpId);
+    const userId = req.params.userId;
+}
+
 module.exports = {
     exploreGroups: exploreGroups,
     createGroup: createGroup,
@@ -239,5 +262,7 @@ module.exports = {
     searchGroup: searchGroup,
     getYourGroups: getYourGroups,
     joinGroup: joinGroup,
-    leaveGroup: leaveGroup
+    leaveGroup: leaveGroup,
+    viewMembers: viewMembers, 
+    removeMember: removeMember
 }

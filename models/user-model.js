@@ -2,6 +2,8 @@ const db = require('../data/database');
 
 const bcrypt = require('bcryptjs');
 
+const mongoDb = require('mongodb');
+
 class User {
 
     constructor(email, password, name, phnumber) {
@@ -36,6 +38,18 @@ class User {
     
     hasMatchingPassword(hashedPassword) {
         return bcrypt.compare(this.password, hashedPassword);
+    }
+
+    async returnMembers(members) {
+        const listMembers = []
+        for (const i of members) {
+            const id = new mongoDb.ObjectId(i);
+            var user = db.getDb().collection('users').findOne({_id: id});
+            user = new User(user);
+            listMembers.push(user);
+        }
+        
+        return listMembers;
     }
 }
 

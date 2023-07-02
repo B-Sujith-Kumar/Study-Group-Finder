@@ -64,9 +64,14 @@
                         <% } %>
                     <% } %>
                     <% if (group.admin === uid) { %>
-                    <form action="/groups/delete/<%= group.id %>?_csrf=<%= locals.csrfToken%>" id="delete" method="post">
-                        <button id="delete-btn">Delete this group</button>
-                    </form>
+                    <li id="li-flex">
+                        <form action="/groups/delete/<%= group.id %>?_csrf=<%= locals.csrfToken%>" id="delete" method="post">
+                            <button id="delete-btn">Delete this group</button>
+                        </form>
+                        <form action="/groups/view-members/<%= group.id %>?_csrf=<%= locals.csrfToken%>" method="post">
+                            <button  class="view-btn">View Members</button>
+                        </form>
+                    </li>
                     <% } %>
                 </li>
             </ul>

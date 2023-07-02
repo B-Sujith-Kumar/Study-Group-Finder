@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Groups | Study Group Finder</title>
+    <link rel="stylesheet" href="/styles/header-style.css">
+    <link rel="stylesheet" href="/styles/signup-page.css">
+    <link rel="stylesheet" href="/styles/groups.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+</head>
+<body>
+    <%- include('../includes/header') %>
+    <main id="explore-main">
+        <h1>View <span id="span">Members</span></h1>
+        <section>
+            <ul id="groups-grid" class="groups-grid">
+                <% for (const user of membersList) { %>
+                    <li>
+                        <article class="group-item" id="member-list">
+                            <div class="group-item-content">
+                                <h2><%= user.name %></h2>
+                                <p>Email : <%= user.email %></p>
+                                <p id="phnumber">Phone Number: <%= user.phnumber %></p>
+                                <form action="/groups/<%= user.grpId %>/remove-member/<%= user.userId %>" method="post">
+                                    <button class="logout action remove">Remove from group</button>
+                                </form>
+                            </div>
+                        </article>
+                    </li>
+                <% } %>
+            </ul>
+        </section>
+    </main>
+</body> 
+</html>
