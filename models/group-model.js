@@ -16,6 +16,7 @@ class Group {
         this.admin = groupData.admin;
         this.image = groupData.image;
         this.members = [];
+        this.announcements = [];
         this.updateImageData();
         if(groupData._id) {
             this.id = groupData._id.toString();
@@ -69,6 +70,7 @@ class Group {
             description: this.description,
             admin: this.uid,
             members: this.members,
+            announcements: this.announcements,
             image: this.image
         };
 
@@ -92,7 +94,7 @@ class Group {
         this.image = newImage;
         this.updateImageData();
     }
-
+    
 }
 
 module.exports = Group;

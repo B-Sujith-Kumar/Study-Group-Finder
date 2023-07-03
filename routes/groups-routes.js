@@ -36,4 +36,8 @@ router.post('/groups/view-members/:id', groupsController.viewMembers);
 
 router.post('/groups/:grpId/remove-member/:userId', groupsController.removeMember);
 
+router.get('/groups/create-announcement/:id', groupsController.getCreateAnnouncement);
+
+router.post('/groups/created-announcement/:id', groupsController.createAnnouncement);
+
 module.exports = router;

@@ -253,6 +253,32 @@ async function removeMember(req, res, next) {
     res.redirect('/groups/' + req.params.grpId);
 }
 
+async function getCreateAnnouncement(req, res, next) {
+    console.log('success');
+    const group = await db.getDb().collection('groups').findOne({_id: new mongoDb.ObjectId(req.params.id)});
+    console.log(group);
+    res.render('groups/announcement', {group: group, id: group._id.toString()});
+}
+
+async function createAnnouncement(req, res, next) {
+    const group = await db.getDb().collection('groups').findOne({_id: new mongoDb.ObjectId(req.params.id)});
+
+    const announcementData = {
+        _id: new mongoDb.ObjectId(),
+        title: req.body.title,
+        content: req.body.content
+    }
+
+    await db.getDb().collection('groups').updateOne(
+        {_id: new mongoDb.ObjectId(req.params.id)},
+        {$push: {announcements: announcementData}}
+        );
+
+    console.log('success');
+
+    res.redirect('/groups/' + req.params.id);
+}
+
 module.exports = {
     exploreGroups: exploreGroups,
     createGroup: createGroup,
@@ -266,5 +292,7 @@ module.exports = {
     joinGroup: joinGroup,
     leaveGroup: leaveGroup,
     viewMembers: viewMembers, 
-    removeMember: removeMember
+    removeMember: removeMember,
+    getCreateAnnouncement: getCreateAnnouncement,
+    createAnnouncement: createAnnouncement
 }

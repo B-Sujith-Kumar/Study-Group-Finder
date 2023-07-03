@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Create group | Study Group Finder</title>
+    <link rel="stylesheet" href="/styles/header-style.css">
+    <link rel="stylesheet" href="/styles/create-group.css">
+    <script src="/scripts/image-preview.js" defer></script>
+</head>
+<body>
+    <%- include('../includes/header') %>
+    <main>
+        <div id="h1-div">
+            <h1>Create an <span>Announcement</span></h1>
+        </div>
+        <div id="parent-main">
+            <div id="main-content">
+                <h3>Fill the below details</h3>
+                <form action="/groups/created-announcement/<%= id %>?_csrf=<%= locals.csrfToken %>" method="post">
+                    <div id="svg-loc">
+                        <label for="grp-subject" id="common-label">Title of the announcement</label>
+                        <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="svg-img">
+                            <path d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                        <input type="text" id="grp-subject" name="title" required placeholder="Title of the announcement">
+                    </div>
+
+                    <label for="grp-description" id="common-label">Content of the announcement</label>
+                    <textarea name="content" id="grp-description" cols="76" rows="5" required placeholder="Content of the announcement"></textarea>
+                    <div id="button-form">
+                            <button type="reset" id="reset-btn">Reset</button>
+                            <button type="submit" class="ann-btn">Create Announcement</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
