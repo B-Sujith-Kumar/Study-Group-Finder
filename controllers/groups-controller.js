@@ -203,7 +203,6 @@ async function getYourGroups(req, res, next) {
         }
     }
 
-    console.log(arrayOfGroups);
 
     res.render('users/your-groups', {id: req.session.uid, groups: arrayOfGroups, member: arrayOfGroups2});
 }
@@ -242,7 +241,6 @@ async function viewMembers(req, res, next) {
         i.userId = i._id.toString();
     }
 
-    console.log(membersList);
     res.render('groups/view-members', {membersList: membersList});
 }
 
@@ -254,9 +252,7 @@ async function removeMember(req, res, next) {
 }
 
 async function getCreateAnnouncement(req, res, next) {
-    console.log('success');
     const group = await db.getDb().collection('groups').findOne({_id: new mongoDb.ObjectId(req.params.id)});
-    console.log(group);
     res.render('groups/announcement', {group: group, id: group._id.toString()});
 }
 
@@ -274,7 +270,6 @@ async function createAnnouncement(req, res, next) {
         {$push: {announcements: announcementData}}
         );
 
-    console.log('success');
 
     res.redirect('/groups/' + req.params.id);
 }
@@ -283,11 +278,7 @@ async function viewAnnouncements(req, res, next) {
     const id = new mongoDb.ObjectId(req.params.id);
     const group = await db.getDb().collection('groups').findOne({_id: id});
     const announcement = group.announcements;
-    for (const i of announcement) {
-        console.log(i.title);
-        console.log(i.content);
-    }
-    res.render('groups/view-announcements', {announcement: announcement});
+    res.render('groups/view-announcements', {announcement: announcement, group: group, uid: req.session.uid});
 }
 
 module.exports = {

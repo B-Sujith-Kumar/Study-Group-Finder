@@ -1,6 +1,7 @@
 body {
     background: linear-gradient(180deg,rgb(254, 254, 254),#fae2e2);
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
 }
 
 main {
@@ -98,6 +99,7 @@ main {
 #hr {
     border-color: #eeecec;
     /* border: none; */
+    width: 90%;
 }
 
 #abt-grp {
@@ -108,9 +110,11 @@ main {
     text-transform: uppercase;
     color: #f5493f;
     font-size: 1.6rem;
+    border-bottom: 1px solid rgb(255, 0, 0);
+    display: inline;
 }
 
-#delete-btn {
+.delete-btn {
     width: 10rem;
     height: 2.8rem;
     padding: 0px 8px;
@@ -128,7 +132,7 @@ main {
     text-decoration: none;
 }
 
-#delete-btn:hover {
+.delete-btn:hover {
     background-color: #ec5a52;
     color: white;
 }
@@ -172,4 +176,45 @@ form {
 
 .view-btn:hover {
     background-color: #da3931
+}
+
+#announcement {
+    display: flex;
+    margin-top: 3rem;
+    justify-content: center;
+}
+
+.create {
+    width: 14.5rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.view {
+    width: 14rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.announcement {
+    margin: 2rem 15rem 2rem 10rem;
+    margin-right: 0;
+}
+
+.announcement h2 {
+    text-transform: uppercase;
+    color: #f5493f;
+    font-size: 1.6rem;
+    border-bottom: 1px solid rgb(255, 0, 0);
+    display: inline;
+}
+
+#form-announcement {
+    display: block;
 }

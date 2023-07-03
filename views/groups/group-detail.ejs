@@ -89,9 +89,11 @@
         <div class="announcement">
             <h2>Announcements</h2>
             <div id="announcement">
+                <% if (uid === group.admin) { %>
                 <form action="/groups/create-announcement/<%= group.id %>?_csrf=<%= locals.csrfToken %>" method="get" id="form-announcement">
                     <button class="view-btn create">Create Announcement</button>
                 </form>
+                <% } %>
                 <form action="/groups/view-announcements/<%= group.id %>?_csrf=<%= locals.csrfToken %>" method="post">
                     <button class="delete-btn view">View Announcements</button>
                 </form>

@@ -43,7 +43,7 @@ main {
 
 #span {
     text-transform: uppercase;
-    color: #ec5a52;
+    color: #ff3e34;
 }
 
 #groups-grid li {
@@ -134,4 +134,62 @@ main {
     margin-top: 0.5rem;
     padding: 0.5rem 1.1rem;
     font-weight: bold;
+}
+
+#ann-li {
+    list-style: none;
+    margin-right: 3rem;
+    background: linear-gradient(180deg, white, rgb(241, 235, 225));
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgb(71, 70, 70);
+    box-shadow: 2px 1px 7px rgba(0,0,0,0.25);
+}
+
+#ann-svg {
+    height: 1.5rem;
+    margin-right: 1rem;
+}
+
+#ann-title {
+    display: flex;
+    align-items: center;
+}
+
+#content {
+    white-space:break-spaces;
+    line-height: 1.9;
+    margin-top: 0;
+    margin-left: 2.5rem;
+    font-size: 1.1rem;
+    color: rgb(40, 39, 39);
+}
+
+#title {
+    text-transform:uppercase;
+    color: #ff3e34;
+}
+
+.delete-ann {
+    color: white;
+    background-color: #ec5b53;
+    padding: 7px 10px;
+    border-radius: 5px;
+    border: 1px solid #ec5b53;
+    transition: background-color linear 0.5s;
+    font-weight: bold;
+    font-family: inherit;
+    font-size: 1.02rem;
+    cursor: pointer;
+    height: 3rem;
+}
+
+.delete-ann:hover {
+    background-color: #da3931
+}
+
+#content-div {
+    display: flex;
+    justify-content: space-between;
 }

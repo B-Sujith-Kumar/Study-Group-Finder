@@ -36,7 +36,9 @@
                                 </div>
                                 <div id="content-div">
                                     <p id="content"><%= i.content %></p>
+                                    <% if (uid === group.admin) { %>
                                     <button class="delete-ann">Delete Announcement</button>
+                                    <% } %>
                                 </div>
                             </div>
                         </li>

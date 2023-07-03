@@ -149,3 +149,22 @@ header {
     object-fit: cover;
     border-radius: 4px;
 }
+.ann-btn {
+    width: 12rem;
+    height: 2.8rem;
+    padding: 5px 8px;
+    font-family: 'Open Sans';
+    font-size: 0.9rem;
+    font-weight: bold;
+    background-color: #ec5a52;
+    color: white;
+    border: 1px solid #ec5a52;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color ease-in 0.2s;
+    margin: auto 1.5rem;
+}
+
+.ann-btn:hover {
+    background-color: #da3931;
+}
