@@ -37,7 +37,9 @@
                                 <div id="content-div">
                                     <p id="content"><%= i.content %></p>
                                     <% if (uid === group.admin) { %>
-                                    <button class="delete-ann">Delete Announcement</button>
+                                    <form action="/groups/<%= groupId %>/delete-announcement/<%= i.id %>?_csrf=<%= locals.csrfToken %>" method="post">
+                                            <button class="delete-ann">Delete Announcement</button>
+                                        </form>
                                     <% } %>
                                 </div>
                             </div>

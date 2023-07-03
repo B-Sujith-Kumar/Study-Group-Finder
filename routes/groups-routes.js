@@ -42,4 +42,6 @@ router.post('/groups/created-announcement/:id', groupsController.createAnnouncem
 
 router.post('/groups/view-announcements/:id', groupsController.viewAnnouncements);
 
+router.post('/groups/:grpId/delete-announcement/:id', groupsController.deleteAnnouncement);
+
 module.exports = router;

@@ -278,7 +278,24 @@ async function viewAnnouncements(req, res, next) {
     const id = new mongoDb.ObjectId(req.params.id);
     const group = await db.getDb().collection('groups').findOne({_id: id});
     const announcement = group.announcements;
-    res.render('groups/view-announcements', {announcement: announcement, group: group, uid: req.session.uid});
+    for (const i in announcement) {
+        announcement[i].id = announcement[i]._id.toString();
+        console.log(announcement[i]);
+    }
+    res.render('groups/view-announcements', {
+        announcement: announcement, group: group, uid: req.session.uid, groupId: req.params.id
+    });
+}
+
+async function deleteAnnouncement(req, res, next) {
+    const groupId = new mongoDb.ObjectId(req.params.grpId);
+    const announcementId = new mongoDb.ObjectId(req.params.id);
+
+    await db.getDb().collection('groups').updateOne(
+        {_id: groupId}, {$pull: {announcements: {_id: announcementId}}
+    });
+
+    res.redirect('/groups/' + req.params.grpId);
 }
 
 module.exports = {
@@ -297,5 +314,6 @@ module.exports = {
     removeMember: removeMember,
     getCreateAnnouncement: getCreateAnnouncement,
     createAnnouncement: createAnnouncement,
-    viewAnnouncements: viewAnnouncements
+    viewAnnouncements: viewAnnouncements,
+    deleteAnnouncement: deleteAnnouncement
 }

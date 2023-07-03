@@ -94,7 +94,7 @@ class Group {
         this.image = newImage;
         this.updateImageData();
     }
-    
+
 }
 
 module.exports = Group;
