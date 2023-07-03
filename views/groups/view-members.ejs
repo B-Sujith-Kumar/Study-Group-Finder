@@ -32,9 +32,11 @@
                                 <h2><%= user.name %></h2>
                                 <p>Email : <%= user.email %></p>
                                 <p id="phnumber">Phone Number: <%= user.phnumber %></p>
+                                <% if (uid === admin) { %>
                                     <form action="/groups/<%= user.grpId %>/remove-member/<%= user.userId %>?_csrf=<%= locals.csrfToken %>" method="post">
                                     <button class="logout action remove">Remove from group</button>
-                                </form>
+                                    </form>
+                                <% } %>
                             </div>
                         </article>
                     </li>

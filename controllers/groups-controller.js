@@ -241,7 +241,7 @@ async function viewMembers(req, res, next) {
         i.userId = i._id.toString();
     }
 
-    res.render('groups/view-members', {membersList: membersList});
+    res.render('groups/view-members', {membersList: membersList, uid: req.session.uid, admin: group.admin});
 }
 
 async function removeMember(req, res, next) {

@@ -74,6 +74,10 @@ main {
     text-align: center;
     position: relative;
     top: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3rem;
 }
 
 #join-btn {
@@ -89,7 +93,7 @@ main {
     cursor: pointer;
     border-radius: 5px;
     transition: background-color ease-in 0.2s;
-    margin-top: 2rem;
+    /* margin-top: 2rem; */
 }
 
 #join-btn:hover {
@@ -152,11 +156,12 @@ form {
 
 .leave-btn {
     width: 12rem;
+    margin-right: 3rem;
 }
 
 #li-flex {
     display: flex;
-    margin-top: 4rem;
+    /* margin-top: 4rem; */
 }
 
 .view-btn {
@@ -172,6 +177,7 @@ form {
     cursor: pointer;
     border-radius: 5px;
     transition: background-color ease-in 0.2s;
+    /* margin-top: 1.95rem; */
 }
 
 .view-btn:hover {

@@ -1,5 +1,5 @@
 html {
-    background: linear-gradient(180deg,rgb(254, 254, 254),#f8d8d6);
+    background: linear-gradient(180deg,rgb(254, 254, 254),#f5dbd9);
     height: auto;
 }
 
@@ -164,6 +164,7 @@ main {
     margin-left: 2.5rem;
     font-size: 1.1rem;
     color: rgb(40, 39, 39);
+    width: 65rem;
 }
 
 #title {
