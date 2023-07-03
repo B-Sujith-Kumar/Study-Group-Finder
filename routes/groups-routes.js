@@ -40,4 +40,6 @@ router.get('/groups/create-announcement/:id', groupsController.getCreateAnnounce
 
 router.post('/groups/created-announcement/:id', groupsController.createAnnouncement);
 
+router.post('/groups/view-announcements/:id', groupsController.viewAnnouncements);
+
 module.exports = router;

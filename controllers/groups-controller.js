@@ -279,6 +279,17 @@ async function createAnnouncement(req, res, next) {
     res.redirect('/groups/' + req.params.id);
 }
 
+async function viewAnnouncements(req, res, next) {
+    const id = new mongoDb.ObjectId(req.params.id);
+    const group = await db.getDb().collection('groups').findOne({_id: id});
+    const announcement = group.announcements;
+    for (const i of announcement) {
+        console.log(i.title);
+        console.log(i.content);
+    }
+    res.render('groups/view-announcements', {announcement: announcement});
+}
+
 module.exports = {
     exploreGroups: exploreGroups,
     createGroup: createGroup,
@@ -294,5 +305,6 @@ module.exports = {
     viewMembers: viewMembers, 
     removeMember: removeMember,
     getCreateAnnouncement: getCreateAnnouncement,
-    createAnnouncement: createAnnouncement
+    createAnnouncement: createAnnouncement,
+    viewAnnouncements: viewAnnouncements
 }

@@ -91,7 +91,9 @@
             <div id="announcement">
                 <form action="/groups/create-announcement/<%= group.id %>?_csrf=<%= locals.csrfToken %>" method="get" id="form-announcement">
                     <button class="view-btn create">Create Announcement</button>
-                    <!-- <button class="delete-btn view">View Announcement</button> -->
+                </form>
+                <form action="/groups/view-announcements/<%= group.id %>?_csrf=<%= locals.csrfToken %>" method="post">
+                    <button class="delete-btn view">View Announcements</button>
                 </form>
             </div>
         </div>
