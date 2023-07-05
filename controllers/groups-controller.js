@@ -340,6 +340,46 @@ async function viewBlogs(req, res, next) {
     });
 }
 
+async function viewFullBlog(req, res, next) {
+    const id = new mongoDb.ObjectId(req.params.id);
+    const group = await db.getDb().collection('groups').findOne({blogs: {$elemMatch: {_id: id}}});
+    const blogs = group.blogs;
+    var reqBlog;
+    for (const i in blogs) {
+        if(blogs[i]._id.toString() === req.params.id) {
+            reqBlog = blogs[i];
+            reqBlog.id = blogs[i]._id.toString();
+            break;
+        }
+    }
+
+    console.log(reqBlog);
+
+    var admin = group.admin;
+
+    admin = await db.getDb().collection('users').findOne({_id: new mongoDb.ObjectId(admin)});
+
+    console.log(admin);
+
+    res.render('groups/view-full-blog', {
+        blogs: blogs, group: group, uid: req.session.uid, groupId: req.params.id, admin: admin, blog: reqBlog
+    });
+}
+
+async function deleteBlog(req, res, next) {
+    const groupId = new mongoDb.ObjectId(req.params.grpId);
+    const blogId = new mongoDb.ObjectId(req.params.id);
+
+    console.log(groupId);
+    console.log(blogId);
+
+    await db.getDb().collection('groups').updateOne(
+        {_id: groupId}, {$pull: {blogs: {_id: blogId}}
+    });
+
+    res.redirect('/groups/' + req.params.grpId);
+}
+
 module.exports = {
     exploreGroups: exploreGroups,
     createGroup: createGroup,
@@ -360,5 +400,7 @@ module.exports = {
     deleteAnnouncement: deleteAnnouncement,
     getCreateBlog: getCreateBlog,
     createBlog: createBlog,
-    viewBlogs: viewBlogs
+    viewBlogs: viewBlogs,
+    viewFullBlog: viewFullBlog,
+    deleteBlog: deleteBlog
 }

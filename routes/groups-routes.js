@@ -50,4 +50,8 @@ router.post('/groups/created-blog/:id', groupsController.createBlog);
 
 router.post('/groups/view-blogs/:id', groupsController.viewBlogs);
 
+router.get('/groups/:grpId/view-blog/:id', groupsController.viewFullBlog);
+
+router.post('/groups/:grpId/delete-blog/:id', groupsController.deleteBlog);
+
 module.exports = router;
