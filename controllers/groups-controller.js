@@ -298,6 +298,48 @@ async function deleteAnnouncement(req, res, next) {
     res.redirect('/groups/' + req.params.grpId);
 }
 
+async function getCreateBlog(req, res, next) {
+    const group = await db.getDb().collection('groups').findOne({_id: new mongoDb.ObjectId(req.params.id)});
+    res.render('groups/create-blog', {group: group, id: group._id.toString()});
+}
+
+
+async function createBlog(req, res, next) {
+    const group = await db.getDb().collection('groups').findOne({_id: new mongoDb.ObjectId(req.params.id)});
+
+    const blogData = {
+        _id: new mongoDb.ObjectId(),
+        title: req.body.title,
+        summary: req.body.summary,
+        content: req.body.content
+    }
+
+    await db.getDb().collection('groups').updateOne(
+        {_id: new mongoDb.ObjectId(req.params.id)},
+        {$push: {blogs: blogData}}
+        );
+
+
+    res.redirect('/groups/' + req.params.id);
+}
+
+async function viewBlogs(req, res, next) {
+    const id = new mongoDb.ObjectId(req.params.id);
+    const group = await db.getDb().collection('groups').findOne({_id: id});
+    const blogs = group.blogs;
+    for (const i in blogs) {
+        blogs[i].id = blogs[i]._id.toString();
+    }
+
+    var admin = group.admin;
+
+    admin = await db.getDb().collection('users').findOne({_id: new mongoDb.ObjectId(admin)});
+
+    res.render('groups/blog-list', {
+        blogs: blogs, group: group, uid: req.session.uid, groupId: req.params.id, admin: admin
+    });
+}
+
 module.exports = {
     exploreGroups: exploreGroups,
     createGroup: createGroup,
@@ -315,5 +357,8 @@ module.exports = {
     getCreateAnnouncement: getCreateAnnouncement,
     createAnnouncement: createAnnouncement,
     viewAnnouncements: viewAnnouncements,
-    deleteAnnouncement: deleteAnnouncement
+    deleteAnnouncement: deleteAnnouncement,
+    getCreateBlog: getCreateBlog,
+    createBlog: createBlog,
+    viewBlogs: viewBlogs
 }

@@ -145,6 +145,7 @@ main {
     margin-bottom: 2rem;
     border: 1px solid rgb(71, 70, 70);
     box-shadow: 2px 1px 7px rgba(0,0,0,0.25);
+    border-radius: 10px;
 }
 
 #ann-svg {
@@ -193,4 +194,24 @@ main {
 #content-div {
     display: flex;
     justify-content: space-between;
+}
+
+.view-blog {
+    padding: 3px 7px;
+    margin-bottom: 1rem;
+}
+
+.delete-blog {
+    background-color: white;
+    color: #ff3e34;
+}
+
+.delete-blog:hover {
+    color: white;
+    background-color: #ec5a52;
+}
+
+#content a {
+    text-decoration: none;
+    color: #ec5b53;
 }

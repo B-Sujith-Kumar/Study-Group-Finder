@@ -44,4 +44,10 @@ router.post('/groups/view-announcements/:id', groupsController.viewAnnouncements
 
 router.post('/groups/:grpId/delete-announcement/:id', groupsController.deleteAnnouncement);
 
+router.get('/groups/create-blog/:id', groupsController.getCreateBlog);
+
+router.post('/groups/created-blog/:id', groupsController.createBlog);
+
+router.post('/groups/view-blogs/:id', groupsController.viewBlogs);
+
 module.exports = router;

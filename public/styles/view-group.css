@@ -1,5 +1,5 @@
 body {
-    background: linear-gradient(180deg,rgb(254, 254, 254),#fae2e2);
+    background: linear-gradient(180deg,rgb(254, 254, 254),#ffebeb);
     min-height: 100vh;
     height: auto;
 }
@@ -223,4 +223,17 @@ form {
 
 #form-announcement {
     display: block;
+}
+
+.create-blog {
+    width: 9rem;
+    margin-right: 3rem;
+    margin-right: 2rem;
+}
+
+.view-blog {
+    position: relative;
+    width: 11rem;
+    margin-left: 6rem;
+    left: 0%;
 }

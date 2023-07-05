@@ -103,6 +103,19 @@
                 </form>
             </div>
         </div>
+        <div class="announcement">
+            <h2>Blogs</h2>
+            <div id="announcement">
+                <% if (uid === group.admin) { %>
+                <form action="/groups/create-blog/<%= group.id %>?_csrf=<%= locals.csrfToken %>" method="get" id="form-announcement">
+                    <button class="view-btn create create-blog">Create Blog</button>
+                </form>
+                <% } %>
+                <form action="/groups/view-blogs/<%= group.id %>?_csrf=<%= locals.csrfToken %>" method="post">
+                    <button class="delete-btn view view-blog">View Blog Posts</button>
+                </form>
+            </div>
+        </div>
         <% } %>
     </main>
 </body>
