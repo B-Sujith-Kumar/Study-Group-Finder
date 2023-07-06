@@ -311,7 +311,8 @@ async function createBlog(req, res, next) {
         _id: new mongoDb.ObjectId(),
         title: req.body.title,
         summary: req.body.summary,
-        content: req.body.content
+        content: req.body.content,
+        comments: []
     }
 
     await db.getDb().collection('groups').updateOne(
@@ -353,16 +354,21 @@ async function viewFullBlog(req, res, next) {
         }
     }
 
-    console.log(reqBlog);
-
     var admin = group.admin;
 
     admin = await db.getDb().collection('users').findOne({_id: new mongoDb.ObjectId(admin)});
 
-    console.log(admin);
+    const user = await db.getDb().collection('users').findOne({_id: new mongoDb.ObjectId(req.session.uid)});
+
+    for(const i of reqBlog.comments) {
+        const userid = new mongoDb.ObjectId(i.user);
+        const user = await db.getDb().collection('users').findOne({_id: userid});
+        i.name = user.name;
+    }
 
     res.render('groups/view-full-blog', {
-        blogs: blogs, group: group, uid: req.session.uid, groupId: req.params.id, admin: admin, blog: reqBlog
+        blogs: blogs, group: group, uid: req.session.uid, groupId: req.params.grpId, admin: admin, blog: reqBlog,
+        user: user, comments: reqBlog.comments
     });
 }
 
@@ -378,6 +384,48 @@ async function deleteBlog(req, res, next) {
     });
 
     res.redirect('/groups/' + req.params.grpId);
+}
+
+async function addComment(req, res, next) {
+    const groupId = new mongoDb.ObjectId(req.params.grpId);
+    const blogId = new mongoDb.ObjectId(req.params.id);
+
+    const comment = req.body.comment;
+
+    var user = new mongoDb.ObjectId(req.session.uid);
+    user = await db.getDb().collection('users').findOne({_id: user});
+    
+    const commentData = {
+        _id: new mongoDb.ObjectId(),
+        user: req.session.uid,
+        comment: comment
+    }
+
+    const group = await db.getDb().collection('groups').findOne({_id: groupId});
+    const blogs = group.blogs;
+    var index = -1;
+
+    for (const i in blogs) {
+        if (blogId.toString() == blogs[i]._id.toString()) {
+            index = i;
+            break;
+        }
+    }
+
+    await db.getDb().collection('groups').updateOne({_id: groupId}, 
+        { $push: {['blogs.' + index + '.comments']: commentData}});
+
+    // if(reqBlog.comments) {
+    //     console.log('Comment section present');
+    // } else {
+    //     console.log('Not present');
+    // }
+
+    // await db.getDb().collection('groups').updateOne({_id: groupId, blogs: {$elemMatch: {
+    //     _id: blogId
+    // }}}, {$push: {'comments': commentData}})
+
+    res.redirect('/groups/' + req.params.grpId + '/view-blog/' + req.params.id);
 }
 
 module.exports = {
@@ -402,5 +450,6 @@ module.exports = {
     createBlog: createBlog,
     viewBlogs: viewBlogs,
     viewFullBlog: viewFullBlog,
-    deleteBlog: deleteBlog
+    deleteBlog: deleteBlog,
+    addComment: addComment
 }

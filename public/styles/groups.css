@@ -246,3 +246,40 @@ main {
     text-decoration: none;
     color: rgb(144, 26, 255);
 }
+
+#cmnt-form {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+#comment {
+    outline: none;
+    display: block;
+    resize: vertical;
+    font-family: 'Open Sans', sans-serif;
+    color: rgb(38, 37, 37);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin: 2rem auto;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+}
+
+#comment:focus {
+    border: 1px solid #ec5a52;
+}
+
+#log-name {
+    text-align: center;
+    font-size: 1.1rem;
+    font-style: italic;
+}
+
+#cmnt-title {
+    text-align: center;
+    margin: 2.5rem auto;
+    text-transform: uppercase;
+    font-size: 1.8rem;
+    color: #ff3e34;
+
+}

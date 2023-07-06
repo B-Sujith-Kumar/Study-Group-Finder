@@ -54,4 +54,6 @@ router.get('/groups/:grpId/view-blog/:id', groupsController.viewFullBlog);
 
 router.post('/groups/:grpId/delete-blog/:id', groupsController.deleteBlog);
 
+router.post('/groups/:grpId/view-blog/:id/comments', groupsController.addComment);
+
 module.exports = router;
