@@ -364,6 +364,7 @@ async function viewFullBlog(req, res, next) {
         const userid = new mongoDb.ObjectId(i.user);
         const user = await db.getDb().collection('users').findOne({_id: userid});
         i.name = user.name;
+        i.id = i._id.toString();
     }
 
     res.render('groups/view-full-blog', {
@@ -415,17 +416,42 @@ async function addComment(req, res, next) {
     await db.getDb().collection('groups').updateOne({_id: groupId}, 
         { $push: {['blogs.' + index + '.comments']: commentData}});
 
-    // if(reqBlog.comments) {
-    //     console.log('Comment section present');
-    // } else {
-    //     console.log('Not present');
-    // }
-
-    // await db.getDb().collection('groups').updateOne({_id: groupId, blogs: {$elemMatch: {
-    //     _id: blogId
-    // }}}, {$push: {'comments': commentData}})
 
     res.redirect('/groups/' + req.params.grpId + '/view-blog/' + req.params.id);
+}
+
+async function deleteComment(req, res, next) {
+    const grpId = new mongoDb.ObjectId(req.params.grpId);
+    const blogId = new mongoDb.ObjectId(req.params.id);
+    const commentId = new mongoDb.ObjectId(req.params.cmntId);
+
+    const group = await db.getDb().collection('groups').findOne({_id: grpId});
+    const blogs = group.blogs;
+
+    var outerIndex;
+    var innerIndex;
+
+    for (const i in blogs) {
+        if (blogId.toString() == blogs[i]._id.toString()) {
+            for (const j in blogs[i].comments) {
+                if (commentId.toString() == blogs[i].comments[j]._id.toString()) {
+                    outerIndex = i;
+                    innerIndex = j;
+                    break;
+                }
+            }
+        }
+    }
+
+    console.log(outerIndex)
+    console.log(innerIndex);
+
+    console.log(commentId);
+
+    await db.getDb().collection('groups').updateOne({_id: grpId},
+        {$pull: {['blogs.' + outerIndex + '.comments']: {_id: commentId}}});
+    
+    res.redirect('/groups/' + grpId.toString() + '/view-blog/' + blogId.toString());
 }
 
 module.exports = {
@@ -451,5 +477,6 @@ module.exports = {
     viewBlogs: viewBlogs,
     viewFullBlog: viewFullBlog,
     deleteBlog: deleteBlog,
-    addComment: addComment
+    addComment: addComment,
+    deleteComment: deleteComment
 }

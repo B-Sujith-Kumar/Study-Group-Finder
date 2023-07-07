@@ -281,5 +281,52 @@ main {
     text-transform: uppercase;
     font-size: 1.8rem;
     color: #ff3e34;
+}
 
+/* #all-comments {
+    text-align: center;
+} */
+
+#cmnt-page {
+    /* background-color: white; */
+    width: 60%;
+    margin-left: 16rem;
+}
+
+#cmnt-list {
+    list-style: none;
+    margin-bottom: 2rem;
+    background: linear-gradient(180deg, white, rgb(248, 239, 225));;
+    padding: 0.5rem 2rem;
+    border-radius: 9px ;
+    border: 1px solid rgb(54, 54, 54);
+}
+
+#name-comment {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #f7392f;
+    font-weight: 700;
+}
+
+#del-cmt {
+    color: white;
+    background-color: #ec5b53;
+    padding: 4px 8px;
+    border-radius: 5px;
+    border: 1px solid #ec5b53;
+    transition: background-color linear 0.5s;
+    font-weight: bold;
+    font-family: inherit;
+    font-size: 1.02rem;
+    cursor: pointer;
+    height: 2rem;
+}
+
+#delete-comment {
+    text-align: right;
+}
+
+#del-cmt:hover {
+    background-color: #da3931
 }

@@ -30,11 +30,21 @@
             <textarea name="comment" id="comment" cols="100" rows="3" placeholder="Drop a comment!" maxlength="256"></textarea>
             <button class="delete-ann">Add comment</button>
         </form>
-        <div>
-            <% for (const i of comments) { %>
-                <p><%= i.name %>:</p>
-                <p><%= i.comment %></p>
-            <% } %>
+        <div id="all-comments">
+            <h2 id="cmnt-title">All Comments</h2>
+            <ul id="cmnt-page">
+                <% for (const i of comments) { %>
+                    <li id="cmnt-list">
+                        <p id="name-comment"><%= i.name %>:</p>
+                        <p id="blog-comment"><%= i.comment %></p>
+                        <% if (uid == i.user || uid == group.admin) { %>
+                        <form action="/groups/<%= groupId %>/view-blog/<%= blog.id %>/delete-comment/<%= i.id %>?_csrf=<%= locals.csrfToken %>" id="delete-comment" method="post">
+                            <button class="delete-ann del-cmt" id="del-cmt">Delete</button>
+                        </form>
+                        <% } %>
+                    </li>
+                <% } %>
+            </ul>
         </div>
     </main>
 </body> 
