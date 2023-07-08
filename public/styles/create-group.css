@@ -168,3 +168,7 @@ header {
 .ann-btn:hover {
     background-color: #da3931;
 }
+
+.add-mat {
+    margin-left: 10rem;
+}

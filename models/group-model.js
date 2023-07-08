@@ -17,6 +17,7 @@ class Group {
         this.image = groupData.image;
         this.members = [];
         this.announcements = [];
+        this.studymaterial = [];
         this.updateImageData();
         if(groupData._id) {
             this.id = groupData._id.toString();
@@ -71,6 +72,8 @@ class Group {
             admin: this.uid,
             members: this.members,
             announcements: this.announcements,
+            blogs: [],
+            studyMaterial: [],
             image: this.image
         };
 

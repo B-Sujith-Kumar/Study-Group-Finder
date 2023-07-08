@@ -147,7 +147,20 @@ async function getGroupDetails(req, res, next) {
                 break;
             }
         }
-        res.render('groups/group-detail', { group: group, name: user.name, uid: req.session.uid, isMember: isMember});
+
+        const groupFind = await db.getDb().collection('groups').findOne({_id: new mongoDb.ObjectId(req.params.id)});
+        console.log(groupFind);
+        const studyMaterial = groupFind.studyMaterial;
+        console.log(studyMaterial);
+
+        if (studyMaterial.length != 0) {
+            for (const i of studyMaterial) {
+                i.id = i._id.toString();
+            }
+        }
+
+
+        res.render('groups/group-detail', { group: group, name: user.name, uid: req.session.uid, isMember: isMember, studyMaterial: studyMaterial, groupId: groupFind._id.toString()});
     } catch( error ) {
         next(error);
         return;
@@ -454,6 +467,40 @@ async function deleteComment(req, res, next) {
     res.redirect('/groups/' + grpId.toString() + '/view-blog/' + blogId.toString());
 }
 
+async function getAddMaterial(req, res, next) {
+    const group = await db.getDb().collection('groups').findOne({_id: new mongoDb.ObjectId(req.params.id)});
+    res.render('groups/add-study-material', {group: group, id: group._id.toString()});
+}
+
+async function addMaterial(req, res, next) {
+    const group = await db.getDb().collection('groups').findOne({_id: new mongoDb.ObjectId(req.params.id)});
+
+    const materialData = {
+        _id: new mongoDb.ObjectId(),
+        title: req.body.title,
+        about: req.body.about,
+        link: req.body.link,
+    }
+
+    await db.getDb().collection('groups').updateOne(
+        {_id: new mongoDb.ObjectId(req.params.id)},
+        {$push: {studyMaterial: materialData}}
+        );
+
+    res.redirect('/groups/' + req.params.id);
+}
+
+async function deleteMaterial(req, res, next) {
+    const groupId = new mongoDb.ObjectId(req.params.grpId);
+    const materialId = new mongoDb.ObjectId(req.params.id);
+
+    await db.getDb().collection('groups').updateOne(
+        {_id: groupId}, {$pull: {studyMaterial: {_id: materialId}}
+    });
+
+    res.redirect('/groups/' + req.params.grpId);
+}
+
 module.exports = {
     exploreGroups: exploreGroups,
     createGroup: createGroup,
@@ -478,5 +525,8 @@ module.exports = {
     viewFullBlog: viewFullBlog,
     deleteBlog: deleteBlog,
     addComment: addComment,
-    deleteComment: deleteComment
+    deleteComment: deleteComment,
+    getAddMaterial: getAddMaterial,
+    addMaterial: addMaterial,
+    deleteMaterial: deleteMaterial
 }

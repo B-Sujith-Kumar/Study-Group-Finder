@@ -107,7 +107,7 @@
             <h2>Blogs</h2>
             <div id="announcement">
                 <% if (uid === group.admin) { %>
-                <form action="/groups/create-blog/<%= group.id %>?_csrf=<%= locals.csrfToken %>" method="get" id="form-announcement">
+                <form action="/groups/create-blog/<%= group.id %>?_csrf=<%= locals.csrfToken %>" method="get" class="form-announcement">
                     <button class="view-btn create create-blog">Create Blog</button>
                 </form>
                 <% } %>
@@ -116,7 +116,43 @@
                 </form>
             </div>
         </div>
-        <% } %>
+        <div class="announcement">
+            <h2>Study Material</h2>
+            <% if (uid === group.admin) { %>
+            <form action="/groups/add-material/<%= group.id %>?_csrf=<%= locals.csrfToken %>" class="form-material">
+                <button class="add-material">Add Study Material</button>
+            </form>
+            <% } %>
+                <!-- <h1>View <span id="span">Study Material</span></h1> -->
+                <section>
+                    <ul>
+                        <% if (studyMaterial.length!=0) { %>
+                            <% for (const i of studyMaterial) { %>
+                            <li id="ann-li">
+                                <div>
+                                    <div id="ann-title">
+                                        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" id="ann-svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776"></path>
+                                          </svg>
+                                        <h2 id="title"><%= i.title %></h2>
+                                    </div>
+                                    <div id="content-div">
+                                        <p id="content"><%= i.about %></p>
+                                        <p id="content-link"><a href="<%= i.link %>" target="_blank"><%= i.link %></a></p>
+                                        <% if (uid === group.admin) { %>
+                                        <form action="/groups/<%= groupId %>/delete-material/<%= i.id %>?_csrf=<%= locals.csrfToken %>" method="post" id="form-delete-mat">
+                                                <button class="delete-ann">Delete Material</button>
+                                            </form>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </li>
+                            <% } %>
+                        <% } %>
+                    </ul>
+                </section>
+            <% } %>
+        </div>
     </main>
 </body>
 </html>

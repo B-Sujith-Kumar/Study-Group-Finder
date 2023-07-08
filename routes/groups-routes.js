@@ -58,4 +58,10 @@ router.post('/groups/:grpId/view-blog/:id/comments', groupsController.addComment
 
 router.post('/groups/:grpId/view-blog/:id/delete-comment/:cmntId', groupsController.deleteComment);
 
+router.get('/groups/add-material/:id', groupsController.getAddMaterial);
+
+router.post('/groups/added-material/:id', groupsController.addMaterial);
+
+router.post('/groups/:grpId/delete-material/:id', groupsController.deleteMaterial);
+
 module.exports = router;
