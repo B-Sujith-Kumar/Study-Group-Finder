@@ -105,7 +105,13 @@ async function updateGroup(req, res, next) {
 
     let prevName = await db.getDb().collection('groups').findOne( {_id: new mongoDb.ObjectId(req.params.id)} );
 
-    let allGroups = await db.getDb().collection('groups').findOne({ name: group.name });
+    console.log(prevName);
+
+    let allGroups;
+    if (group.name != prevName.name) {
+        allGroups = await db.getDb().collection('groups').findOne({ name: group.name });
+    }
+
 
     const sessionErrorData = {
         errorMessage: 'A group with this name already exists. Try a different name!',
@@ -115,9 +121,12 @@ async function updateGroup(req, res, next) {
         description: group.description
     }
 
-    if(allGroups && group.name === prevName.name) {
+    console.log(prevName);
+    console.log(allGroups);
+
+    if(!allGroups && (group.name === prevName.name || group.name!= prevName.name)) {
         try {
-            await group.save();
+            await group.updateInfo();
         } catch (error) {
             next(error);
             return;

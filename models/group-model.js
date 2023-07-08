@@ -17,7 +17,8 @@ class Group {
         this.image = groupData.image;
         this.members = [];
         this.announcements = [];
-        this.studymaterial = [];
+        this.studyMaterial = [];
+        this.blogs = [];
         this.updateImageData();
         if(groupData._id) {
             this.id = groupData._id.toString();
@@ -72,8 +73,34 @@ class Group {
             admin: this.uid,
             members: this.members,
             announcements: this.announcements,
-            blogs: [],
-            studyMaterial: [],
+            blogs: this.blogs,
+            studyMaterial: this.studyMaterial,
+            image: this.image
+        };
+
+        if(this.id) {
+            const groupId = new mongodb.ObjectId(this.id);
+
+            if (!this.image) {
+                delete groupData.image;
+            }
+
+            await db.getDb().collection('groups').updateOne({_id: groupId}, {
+                $set: groupData
+            }
+            );
+        } else {
+            await db.getDb().collection('groups').insertOne(groupData);
+        }
+    }
+
+    async updateInfo() {
+        const groupData = {
+            location: this.location,
+            name: this.name,
+            subject: this.subject,
+            description: this.description,
+            admin: this.uid,
             image: this.image
         };
 
