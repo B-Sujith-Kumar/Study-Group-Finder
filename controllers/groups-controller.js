@@ -108,6 +108,7 @@ async function updateGroup(req, res, next) {
     console.log(prevName);
 
     let allGroups;
+
     if (group.name != prevName.name) {
         allGroups = await db.getDb().collection('groups').findOne({ name: group.name });
     }
