@@ -105,7 +105,7 @@ async function updateGroup(req, res, next) {
 
     let prevName = await db.getDb().collection('groups').findOne( {_id: new mongoDb.ObjectId(req.params.id)} );
 
-    console.log(prevName);
+    // console.log(prevName);
 
     let allGroups;
 
@@ -122,8 +122,8 @@ async function updateGroup(req, res, next) {
         description: group.description
     }
 
-    console.log(prevName);
-    console.log(allGroups);
+    // console.log(prevName);
+    // console.log(allGroups);
 
     if(!allGroups && (group.name === prevName.name || group.name!= prevName.name)) {
         try {
@@ -159,9 +159,9 @@ async function getGroupDetails(req, res, next) {
         }
 
         const groupFind = await db.getDb().collection('groups').findOne({_id: new mongoDb.ObjectId(req.params.id)});
-        console.log(groupFind);
+        // console.log(groupFind);
         const studyMaterial = groupFind.studyMaterial;
-        console.log(studyMaterial);
+        // console.log(studyMaterial);
 
         if (studyMaterial.length != 0) {
             for (const i of studyMaterial) {
@@ -259,6 +259,8 @@ async function viewMembers(req, res, next) {
         membersList.push(user);
     }
 
+    console.log(membersList);
+
     for(const i of membersList) {
         i.grpId = req.params.id;
         i.userId = i._id.toString();
@@ -303,7 +305,7 @@ async function viewAnnouncements(req, res, next) {
     const announcement = group.announcements;
     for (const i in announcement) {
         announcement[i].id = announcement[i]._id.toString();
-        console.log(announcement[i]);
+        // console.log(announcement[i]);
     }
     res.render('groups/view-announcements', {
         announcement: announcement, group: group, uid: req.session.uid, groupId: req.params.id
@@ -400,8 +402,8 @@ async function deleteBlog(req, res, next) {
     const groupId = new mongoDb.ObjectId(req.params.grpId);
     const blogId = new mongoDb.ObjectId(req.params.id);
 
-    console.log(groupId);
-    console.log(blogId);
+    // console.log(groupId);
+    // console.log(blogId);
 
     await db.getDb().collection('groups').updateOne(
         {_id: groupId}, {$pull: {blogs: {_id: blogId}}
@@ -466,10 +468,10 @@ async function deleteComment(req, res, next) {
         }
     }
 
-    console.log(outerIndex)
-    console.log(innerIndex);
+    // console.log(outerIndex)
+    // console.log(innerIndex);
 
-    console.log(commentId);
+    // console.log(commentId);
 
     await db.getDb().collection('groups').updateOne({_id: grpId},
         {$pull: {['blogs.' + outerIndex + '.comments']: {_id: commentId}}});
